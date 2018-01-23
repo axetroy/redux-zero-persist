@@ -2,9 +2,9 @@ const key_prefix = "persist:";
 
 function _() {}
 
-async function mapStateToStorage(store, config) {
+function mapStateToStorage(store, config) {
   const state = store.getState();
-  await new Promise(function(resolve, reject) {
+  return new Promise(function(resolve, reject) {
     config.storage.setItem(
       key_prefix + config.key,
       JSON.stringify(state),
@@ -21,27 +21,28 @@ function mapStorageToState(state, config, cb) {
   });
 }
 
-class Storage {
-  constructor() {}
-  getItem(key, cb) {
-    const val = localStorage.getItem(key);
-    setTimeout(function() {
-      cb(null, val);
-    });
-  }
-  setItem(key, item, cb) {
-    localStorage.setItem(key, item);
-    setTimeout(function() {
-      cb(null, val);
-    });
-  }
-  removeItem(key, cb) {
-    localStorage.removeItem(key);
-    setTimeout(function() {
-      cb(null);
-    });
-  }
-}
+function Storage() {}
+
+Storage.prototype.getItem = function(key, cb) {
+  const val = localStorage.getItem(key);
+  setTimeout(function() {
+    cb(null, val);
+  });
+};
+
+Storage.prototype.setItem = function(key, item, cb) {
+  localStorage.setItem(key, item);
+  setTimeout(function() {
+    cb(null, val);
+  });
+};
+
+Storage.prototype.removeItem = function(key) {
+  localStorage.removeItem(key);
+  setTimeout(function() {
+    cb(null);
+  });
+};
 
 function persist(config, cb) {
   cb = cb || _;
