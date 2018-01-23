@@ -1,0 +1,25 @@
+{
+  "name": "redux-zero-persist",
+  "version": "0.0.0",
+  "description": "redux-zero persist middleware",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axetroy/redux-zero-persist.git"
+  },
+  "author": "Axetroy",
+  "license": "Apache",
+  "bugs": {
+    "url": "https://github.com/axetroy/redux-zero-persist/issues"
+  },
+  "homepage": "https://github.com/axetroy/redux-zero-persist#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^0.24.0",
+    "coveralls": "^3.0.0",
+    "nyc": "^11.4.1"
+  }
+}
