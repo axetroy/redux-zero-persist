@@ -15,7 +15,23 @@
 ```javascript
 const persist = require("redux-zero-persist");
 
-// TODO
+const persistMiddleware = persist({ key: "[key]", storage: require("localforage") }, function(
+  err,
+  state
+) {
+  if (err) {
+    console.error(err);
+  } else {
+    store.setState(state);
+  }
+});
+
+const middlewares = applyMiddleware(
+  persistMiddleware,
+  antoherMiddleware
+);
+
+const store = createStore(initialState, middlewares);
 ```
 
 ## Contributing
@@ -31,7 +47,7 @@ const persist = require("redux-zero-persist");
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 
 | [<img src="https://avatars1.githubusercontent.com/u/9758711?v=3" width="100px;"/><br /><sub>Axetroy</sub>](http://axetroy.github.io)<br />[💻](https://github.com/axetroy/redux-zero-persist/commits?author=axetroy) [🐛](https://github.com/axetroy/redux-zero-persist/issues?q=author%3Aaxetroy) 🎨 |
-| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
