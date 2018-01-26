@@ -4,4 +4,4 @@
 node_modules
 .nyc_output
 .cache
-pag
+dist

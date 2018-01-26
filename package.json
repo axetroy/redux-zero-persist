@@ -4,6 +4,9 @@
   "description": "redux-zero persist middleware",
   "main": "index.js",
   "scripts": {
+    "server": "libpack ./index.js ./dist --server",
+    "start": "libpack ./index.js ./dist --watch",
+    "build": "rm -rf ./dist && libpack ./index.js ./dist",
     "test": "nyc ava"
   },
   "repository": {
