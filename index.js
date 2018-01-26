@@ -1,5 +1,11 @@
 const key_prefix = "persist:";
 
+/**
+ * map state to storage
+ * @param store
+ * @param config
+ * @returns {Promise<any>}
+ */
 function mapStateToStorage(store, config) {
   const state = store.getState();
   return new Promise((resolve, reject) => {
@@ -11,34 +17,50 @@ function mapStateToStorage(store, config) {
   });
 }
 
+/**
+ * map storage to state
+ * @param state
+ * @param config
+ * @param cb
+ */
 function mapStorageToState(state, config, cb) {
   config.storage.getItem(key_prefix + config.key, (err, value) =>
     cb(err, Object.assign({}, state, JSON.parse(value)))
   );
 }
 
-function Storage() {}
-
-Storage.prototype.getItem = function(key, cb) {
-  const val = localStorage.getItem(key);
-  setTimeout(() => cb(null, val));
-};
-
-Storage.prototype.setItem = function(key, item, cb) {
-  localStorage.setItem(key, item);
-  setTimeout(() => cb(null, val));
-};
-
-Storage.prototype.removeItem = function(key) {
-  localStorage.removeItem(key);
-  setTimeout(() => cb(null));
-};
+/**
+ * Memory key-value storage
+ */
+class MemoryStorage {
+  constructor() {
+    this.store = {};
+  }
+  getItem(key, cb) {
+    setTimeout(() => cb(null, this.store[key]));
+  }
+  setItem(key, item, cb) {
+    setTimeout(() => cb(null, (this.store[key] = item + "")));
+  }
+  removeItem(key, cb) {
+    const val = this.store[key];
+    setTimeout(() => cb(null, delete this.store[key] && val));
+  }
+}
 
 function persist(
-  config = { key: "[rc]", storage: new Storage() },
+  config = { key: "[rc]", storage: new MemoryStorage() },
   cb = () => {}
 ) {
-  mapStorageToState({}, config, cb);
+  mapStorageToState({}, config, function(err, state) {
+    if (err) {
+      config.storage.removeItem(key_prefix + config.key, function(_err) {
+        cb(_err, state);
+      });
+    } else {
+      cb(err, state);
+    }
+  });
 
   // return middleware
   return state => next => action => {
@@ -58,3 +80,5 @@ function persist(
 }
 
 module.exports = persist;
+module.exports.default = persist;
+module.exports.Storage = Storage;
