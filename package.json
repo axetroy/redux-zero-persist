@@ -2,7 +2,7 @@
   "name": "redux-zero-persist",
   "version": "0.1.0",
   "description": "redux-zero persist middleware",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "server": "libpack ./index.js ./dist --server",
     "start": "libpack ./index.js ./dist --watch",
