@@ -40,7 +40,7 @@ class MemoryStorage {
     setTimeout(() => cb(null, this.store[key]));
   }
   setItem(key, item, cb) {
-    setTimeout(() => cb(null, (this.store[key] = item + "")));
+    setTimeout(() => cb(null, (this.store[key] = item + "") && item));
   }
   removeItem(key, cb) {
     const val = this.store[key];
