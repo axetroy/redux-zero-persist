@@ -18,3 +18,4 @@ doc
 pag
 .cache
 .babelrc
+package-lock.json
