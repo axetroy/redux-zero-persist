@@ -1,4 +1,4 @@
-## redux-zero logger middleware
+## redux-zero persist middleware
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/axetroy/redux-zero-persist.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/axetroy/redux-zero-persist.svg?branch=master)](https://travis-ci.org/axetroy/redux-zero-persist)
