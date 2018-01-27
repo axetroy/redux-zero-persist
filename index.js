@@ -81,4 +81,4 @@ function persist(
 
 module.exports = persist;
 module.exports.default = persist;
-module.exports.Storage = Storage;
+module.exports.MemoryStorage = MemoryStorage;
