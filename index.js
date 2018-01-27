@@ -74,14 +74,14 @@ function persist(
   });
 
   // return middleware
-  return state => next => action => {
+  return store => next => action => {
     const r = next(action);
     if (r && typeof r.then === 'function') {
       return next(action).then(d => {
-        return mapStateToStorage(state, config).then(() => Promise.resolve(d));
+        return mapStateToStorage(store, config).then(() => Promise.resolve(d));
       });
     } else {
-      return mapStateToStorage(state, config).then(() => Promise.resolve(r));
+      return mapStateToStorage(store, config).then(() => Promise.resolve(r));
     }
   };
 }
