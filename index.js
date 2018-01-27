@@ -1,4 +1,6 @@
-const key_prefix = "persist:";
+const key_prefix = 'persist:';
+
+function _() {}
 
 /**
  * map state to storage
@@ -23,10 +25,17 @@ function mapStateToStorage(store, config) {
  * @param config
  * @param cb
  */
-function mapStorageToState(state, config, cb) {
-  config.storage.getItem(key_prefix + config.key, (err, value) =>
-    cb(err, Object.assign({}, state, JSON.parse(value)))
-  );
+function mapStorageToState(state, config, cb = _) {
+  config.storage.getItem(key_prefix + config.key, (err, value) => {
+    let _state = {};
+    if (err) {
+      cb(null, {});
+    }
+    try {
+      _state = JSON.parse(value);
+    } catch (err) {}
+    cb(null, Object.assign({}, state, _state));
+  });
 }
 
 /**
@@ -36,25 +45,27 @@ class MemoryStorage {
   constructor() {
     this.store = {};
   }
-  getItem(key, cb) {
+  getItem(key, cb = _) {
     setTimeout(() => cb(null, this.store[key]));
   }
-  setItem(key, item, cb) {
-    setTimeout(() => cb(null, (this.store[key] = item + "") && item));
+  setItem(key, item, cb = _) {
+    setTimeout(() => {
+      cb(null, (this.store[key] = item) && item);
+    });
   }
-  removeItem(key, cb) {
+  removeItem(key, cb = _) {
     const val = this.store[key];
     setTimeout(() => cb(null, delete this.store[key] && val));
   }
 }
 
 function persist(
-  config = { key: "[rc]", storage: new MemoryStorage() },
-  cb = () => {}
+  config = { key: '[rc]', storage: new MemoryStorage() },
+  cb = _
 ) {
-  mapStorageToState({}, config, function(err, state) {
+  mapStorageToState({}, config, (err, state) => {
     if (err) {
-      config.storage.removeItem(key_prefix + config.key, function(_err) {
+      config.storage.removeItem(key_prefix + config.key, _err => {
         cb(_err, state);
       });
     } else {
@@ -65,16 +76,12 @@ function persist(
   // return middleware
   return state => next => action => {
     const r = next(action);
-    if (r && typeof r.then === "function") {
+    if (r && typeof r.then === 'function') {
       return next(action).then(d => {
-        return mapStateToStorage(store, config).then(function() {
-          return Promise.resolve(d);
-        });
+        return mapStateToStorage(store, config).then(() => Promise.resolve(d));
       });
     } else {
-      return mapStateToStorage(store, config).then(function() {
-        return Promise.resolve(r);
-      });
+      return mapStateToStorage(store, config).then(() => Promise.resolve(r));
     }
   };
 }
