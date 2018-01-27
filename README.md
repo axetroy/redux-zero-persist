@@ -13,6 +13,8 @@
 ## Usage
 
 ```javascript
+const createStore = require("redux-zero")
+const applyMiddleware = require("redux-zero/middleware")
 const persist = require("redux-zero-persist");
 
 const persistMiddleware = persist({ key: "[key]", storage: require("localforage") }, function(
