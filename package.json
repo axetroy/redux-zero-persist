@@ -1,6 +1,6 @@
 {
   "name": "redux-zero-persist",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "redux-zero persist middleware",
   "main": "./dist/index.js",
   "scripts": {
