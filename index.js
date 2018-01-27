@@ -78,10 +78,10 @@ function persist(
     const r = next(action);
     if (r && typeof r.then === 'function') {
       return next(action).then(d => {
-        return mapStateToStorage(store, config).then(() => Promise.resolve(d));
+        return mapStateToStorage(state, config).then(() => Promise.resolve(d));
       });
     } else {
-      return mapStateToStorage(store, config).then(() => Promise.resolve(r));
+      return mapStateToStorage(state, config).then(() => Promise.resolve(r));
     }
   };
 }
