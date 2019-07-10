@@ -1,6 +1,5 @@
 ## redux-zero persist middleware
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/axetroy/redux-zero-persist.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/axetroy/redux-zero-persist.svg?branch=master)](https://travis-ci.org/axetroy/redux-zero-persist)
 [![Coverage Status](https://coveralls.io/repos/github/axetroy/redux-zero-persist/badge.svg?branch=master)](https://coveralls.io/github/axetroy/redux-zero-persist?branch=master)
 [![Dependency](https://david-dm.org/axetroy/redux-zero-persist.svg)](https://david-dm.org/axetroy/redux-zero-persist)
